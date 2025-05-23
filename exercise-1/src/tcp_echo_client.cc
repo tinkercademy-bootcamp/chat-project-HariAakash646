@@ -15,8 +15,8 @@ int main(int argc, char* argv[]) {
     if(i > 1) message += " ";
     message += argv[i];
   }
-  const int kPort = 8080;
-  const std::string kServerAddress = "127.0.0.1";
+  const int kPort = 35000;
+  const std::string kServerAddress = "13.200.106.237";
   sockaddr_in address;
   const int kBufferSize = 1024;
   char buffer[kBufferSize] = {0};

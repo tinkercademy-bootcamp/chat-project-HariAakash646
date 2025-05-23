@@ -6,9 +6,15 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-int main() {
+int main(int argc, char* argv[]) {
   // #Question - are these the same type?
-  std::string message = "Hello from client";
+  // #Answer - No, the right is a C style character array whereas the left is a std::string.
+  std::string message = "";
+
+  for(int i=1; i<argc; i++) {
+    if(i > 1) message += " ";
+    message += argv[i];
+  }
   const int kPort = 8080;
   const std::string kServerAddress = "127.0.0.1";
   sockaddr_in address;

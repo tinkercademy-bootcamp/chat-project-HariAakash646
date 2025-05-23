@@ -14,11 +14,20 @@
 
 - Compile the TCP client and server using `g++` from command line.
 - What are the most important command line arguments to learn for `g++`?
+  * -c, -o, -Wall, -Wextra, -g, -std=c++xx, -Ox
 - What is the difference between debug vs release versions?
+  * Debug versions are compiled to run the code step by step suitable for debugging.
+  * Release versions are compiled to be fast and well tested suitable for final production.
 - What are the tradeoffs between debug and release versions?
+  * Release versions are faster, optimized and tested code suitable for production.
+  * Debug versions contain debugging information and is not very optimized and is suitable for debugging.
 - What arguments would you use in a debug build?
+  * -g, -Wall, -Wextra
 - What about for release?
+  * -O2/-O3
 - What other kinds of build types are useful?
+  * RelWithDebInfo - Release with Debug Info. Optimized for speed, but includes debug info.
+  * MinSizeRel - Minimizes the size of the executables. Compromises on performance. Suitable for embedded systems.
 
 ## Learn Basics of Make
 
@@ -26,16 +35,22 @@
 - [Quickstart tutorial to make](https://makefiletutorial.com/) - Learn make 
   fundamentals with practical examples and common patterns.
 - How else can you learn about make?
+  * Practicing
 - How can you tell if the resource you are using is correct?
+  * By reflecting if you are actually learning important stuff you didn't know about.
 - Create a makefile such that when you run `make` with no arguments, it will:
   - Create `build/` directory if it does not exist
   - Create executables **client** and **server** in `build/`, if needed
   - How does make know when it needs to rebuild the executables?
+    * Make maintains the timestamps of the modification of the prerequisite file and trarget file. If the timestamp of the update of the prerequisite file is later than the target file, the commands are executed.
   - Change your Makefile such that `make clean` will remove `build/` and all
     its contents
 - What are the most important command line arguments to learn for make?
+  * -s, -k, -n, -f, -d
 - What are the most important directives to learn about in Makefile?
+  * include, if, ifdef, ifndef, else, endif
 - What are the most important commands to implement in your Makefile?
+  * clean
 - Which ones are essential, which ones are nice to haves?
 
 ## Learn Basics of Git
@@ -48,6 +63,7 @@
 - Is it better to have a lot of very small commits, or one big commit when 
   everything is working?
 - What are the most important commands to know in git?
+  * commit, push, pull, merge, rebase, add
 
 ## Introduction to Sockets
 

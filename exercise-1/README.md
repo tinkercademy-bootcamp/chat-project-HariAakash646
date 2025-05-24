@@ -74,9 +74,12 @@
 - Commit your changes into git
 - What do all these headers do?
 - How do you find out which part of the below code comes from which header?
+  * By commenting out the header and checking which line throws an error.
 - How do you change the code so that you are sending messages to servers
   other than localhost?
+    * Replace kServerAddress in the client code with the IP address of the server you wish to send to. Change the port to 35000 in both client and server. 
 - How do you change the code to send to a IPv6 address instead of IPv4?
+  * Make a few changes to both client and server code to use IPv6. Localhost is ::1
 - **Bonus**: How do you change the client code to connect by hostname instead
   of IP address?
   

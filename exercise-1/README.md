@@ -87,29 +87,46 @@
 
 - What is happening in line 26 of `tcp-echo-client.cc`? 
   `if (inet_pton(AF_INET, kServerAddress.c_str(), &address.sin_addr) <= 0) {`
+  * converts IP address from text to binary and stores in address.sin_addr
 - What is happening in line 31 of `tcp-echo-client.cc`?
   `if (connect(my_sock, (sockaddr *)&address, sizeof(address)) < 0) {`
+  * Connects to the server given by address
 - What is the difference between a pointer and a reference?
+  * A pointer stores the memory address of a variable whereas a reference acts as an alias to a variable. A pointer can be reassigned to a different address whereas a reference can act as an alias to only one variable.
 - When is it better to use a pointer?
+  * If we need the pointer to refer to multiple addresses through the run of the program and aslo need it to have NULL value. And pointers can be incremented to access adjacent memory addresses.
 - When is it better to use a reference?
+  * When "reseatiung"(assigning to another variable) is not needed. Can be accessed without dereferencing.
 - What is the difference between `std::string` and a C-style string?
+  * std::string is dynamically allocated in memory and the size can be changed freely. C-style string has fixed maximunm size that is allocated when the string is declared.
 - What type is a C-style string?
+  * A char array.
 - What happens when you iterate a pointer?
+  * It gets incremented by the size of the variable it references and updates the memory address.
 - What are the most important safety tips to know when using pointers?
+  * Always free pointer when you don't need to access it anymore.
+
 
 ## Learn Basics of Creating a C++ Project in Your IDE
 
 - How do you compile and run your project in your IDE?
+  * g++ -o compile file.cpp
+  * ./compile
 
 ## Improving Interactions with LLMs
 
 - What is the most authoritative source of information about `socket()`
   from `<sys/socket.h>`?
+  * man
 - What is the most authoritative source of information about the TCP and IP
   protocols?
 - What is the most authoritative source of information about the C++
   programming language?
+  * man pages
 - What information can you find about using Markdown when structuring prompts 
   to LLMs?
+  * https://www.markdownguide.org/getting-started/
 - What is the difference between LLM and AI?
+  * LLM is a Langauge Model like chatgpt. AI includes any artificial intelligence including LLMs, Face Recognition, Image Generation, Translation, etc.
 - Is it grammatically correct in English to say "a LLM" or "an LLM"? Why?
+  * an LLM. Pronounced "el el em" and pronunciation starts with a vowel.

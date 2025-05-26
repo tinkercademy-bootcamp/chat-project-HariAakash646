@@ -6,12 +6,17 @@
 
 const int kBufferSize = 1024;
 
-int create_socket() {
-  int my_sock;
-  if ((my_sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-    std::cerr << "Socket creation error\n";
+void check_error(bool test, std::string error_message) {
+  if (test) {
+    std::cerr << error_message << "\n";
     exit(EXIT_FAILURE);
   }
+}
+
+int create_socket() {
+  int my_sock = socket(AF_INET, SOCK_STREAM, 0);
+  check_error(my_sock < 0, "Socket creation error\n");
+  
   return my_sock;
 }
 

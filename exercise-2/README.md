@@ -50,20 +50,29 @@
 
 - Read the code in `src/`
 - Are there any bugs in this code? 
+  * Does not support multi-word messages. Fixed it.
 - What can you do to identify if there are bugs in the code?
+  * Running it with a few cases.
 
 ## Refactoring: Extract Function
 
 - What is different in this code compared to exercise-1?
+  * Lines have been grouped into functions and thus split into modular blocks.
 - Is this code better or worse than exercise-1?
+  * This code is better as it is more modular and structured. It is easier to understand what each line does and easier to navigate.
 - What are the tradeoffs compared to exercise-1?
+  * Longer code
 - Are you able to spot any mistakes or inconsistencies in the changes?
+  * No
   
 ## Thinking About Performance
 
 - Does writing code this way have any impact on performance?
+  * Having function calls might slow down the program. But I assume modern compilers can speed it up by performing the functions inline.
 - What do we mean when we say performance?
+  * The time and space required for the code to execute during runtime.
 - How do we measure performance in a program?
+  * The simplest way to measure time would be using clocks in C++ like chrono. But this is not ideal.
 
 ## Play with Git
 

@@ -83,8 +83,12 @@
 - Make sure to commit each change as small and self-contained commit
 - This will make it easier to revert your code if you need to
 - What is `git tag`? How is `git tag` different from `git branch`?
+  * git tag creates a marker at the current instance of the codebase. We can later access the codebase at that instance but this cannot be modified. 
+  * On the other hand, git branch, creates a new branch which can be modified and later merged into the original branch.
 - How can you use `git tag` and `git branch` to make programming easier and
   more fun?
+  * We can use git tag when we wish to save a version of the codebase that we would like to refer back to.
+  * Use git branch when we wish to code in a different branch which can be potentially merged later.
 
 ## Learn Basics of Debugging in Your IDE
 

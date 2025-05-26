@@ -7,8 +7,8 @@
 - Read the code in `src/tcp_echo_client.cc`
 - A new function `check_error()` has been created and `create_socket()` from 
   exercise-2 has been refactored to make use of it
-- What are the benefits of writing code in this way?lines are not repeated.
-  * Increased modularisation. The if and cout 
+- What are the benefits of writing code in this way?
+  * Increased modularisation. The if and cout lines are not repeated.
 - Are there any costs to writing code like this?
   * The function calls may increase overhead but modern compilers usually optimize for this.
 - Apply `check_error` to all the code in `src/`

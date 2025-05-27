@@ -44,6 +44,7 @@
 - What happens when you look at a `std::string` using the above methods?
 - Where is the text in your `std::string`?
 - What is `std::optional`?
+  * It allows a variabloe to store values of a datatype or null value if required.
 - How do you find out the memory layout of a `std::optional`?
 - Read https://en.cppreference.com/w/cpp/memory#Smart_pointers - Guide to 
   modern C++ memory management using smart pointers

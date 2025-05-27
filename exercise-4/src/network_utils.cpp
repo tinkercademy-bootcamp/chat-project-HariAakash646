@@ -2,8 +2,9 @@
 #include <netinet/in.h>
 #include <iostream>
 #include <cstdlib>
+#include <string>
 
-template <typename T, typename S> void check_error(T test, S error_message) {
+void check_error(bool test, std::string error_message) {
   if (test) {
     std::cerr << error_message << "\n";
     exit(EXIT_FAILURE);

@@ -1,7 +1,9 @@
 #ifndef NETWORK_UTILS_H
 #define NETWORK_UTILS_H
 
-template <typename T, typename S> void check_error(T test, S error_message);
+#include <string>
+
+void check_error(bool test, std::string error_message);
 
 int create_socket();
 

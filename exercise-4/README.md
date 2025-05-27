@@ -11,10 +11,13 @@
 - How would you compile using make?
   * Add the common .cpp file to the compilation command in the make file
 - How would you compile using VS Code?
+  * By setting up a tasks.json file and inclusing the other .cpp file to it to compile as an arg
 
 ### Compiling vs Linking
 
 - What is the difference between compiling and linking in C++?
+  * Compiling converts all .cc/.cpp into object files(.o)
+  * Linking combines all object files into an executable
 - What is the difference between creating an executable and creating a 
   library?
 - How do you compile a library, and then use that library to compile an

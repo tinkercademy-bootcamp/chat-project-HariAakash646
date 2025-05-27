@@ -93,9 +93,13 @@
 ## Learn Basics of Debugging in Your IDE
 
 - How do you enable debug mode in your IDE?
+  * By configuring launch.json(and maybe tasks.json too) as required entewring debug mode using F5.
 - In debug mode, how do you add a watch?
+  * By clicking on the plus button next to "Watch" on the "Run and Debug" tab".
 - In debug mode, how do you add a breakpoint?
+  * By clicking next to a line in the code file.
 - In debug mode, how do you step through code?
+  * By clicking on step over to move to next line/continue to move to next breakpoint.
 
 ### Memory Management and Debug Mode in Your IDE
 

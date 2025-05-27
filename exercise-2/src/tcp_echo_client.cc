@@ -43,16 +43,17 @@ void connect_to_server(int sock, sockaddr_in &server_address) {
 void send_and_receive_message(int sock, const std::string &message) {
   const int kBufferSize = 1024;
   // #Question - is buffer the best name we can use?
-  char buffer[kBufferSize] = {0};
+  // #Answer - Response suits better
+  char response[kBufferSize] = {0};
 
   // Send the message to the server
   send(sock, message.c_str(), message.size(), 0);
   std::cout << "Sent: " << message << "\n";
 
   // Receive response from the server
-  ssize_t read_size = read(sock, buffer, kBufferSize);
+  ssize_t read_size = read(sock, response, kBufferSize);
   if (read_size > 0) {
-    std::cout << "Received: " << buffer << "\n";
+    std::cout << "Received: " << response << "\n";
   } else if (read_size == 0) {
     std::cout << "Server closed connection.\n";
   } else {
@@ -61,6 +62,7 @@ void send_and_receive_message(int sock, const std::string &message) {
 }
 
 // #Question - what can be improved in this function?
+// #Answer - Deal with multi-word messages
 std::string read_args(int argc, char *argv[]) {
   std::string message = "Hello from client";
   if (argc == 1) {
@@ -68,7 +70,11 @@ std::string read_args(int argc, char *argv[]) {
     exit(EXIT_FAILURE);
   }
   if (argc > 1) {
-    message = argv[1];
+    message = "";
+    for(int i=1; i<argc; i++) {
+      if(i > 1) message += " ";
+      message += argv[i];
+    }
   }
   return message;
 }

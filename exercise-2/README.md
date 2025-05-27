@@ -12,6 +12,7 @@
   overview and protocol families
 - Or type `man 7 socket` in terminal
 - When would you want to use a `SOCK_RAW` stream?
+  * To design custom protocols below TCP/UDP 
 
 ### TCP and IP Protocols
 - [IPv4](https://www.rfc-editor.org/info/rfc791) - Internet Protocol 
@@ -25,35 +26,53 @@
 - [C++23 ISO standard draft](https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/n4950.pdf) - 
   Working draft of the C++ language specification
 - Is the above the official C++23 spec? 
+  * No
 - Where is the official C++23 spec?
+  * ISO/IEC 14882:2024
 - Why was this link chosen instead?
+  * Openly accessible online
 - Is this a helpful reference for learning C++?
+  * No, it is more like a reference to look up after you have a decent grasp of the language.
 - Can the various implementations of C++ compilers be different from the
   C++ standard?
+  * Yes
 - What are the most widely used and most significant C++ compilers?
+  * GCC and Clang
 - Where is the equivalent spec for C++26?
+  * https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/n5008.pdf
 
 - Where do you find the spec for the HTTP protocol?
+  * https://datatracker.ietf.org/doc/html/rfc2616
 - What about HTTPS? Is there a spec for that protocol?
+  * No
 
 ## Introduction to C++ and Sockets Programming
 
 - Read the code in `src/`
 - Are there any bugs in this code? 
+  * Does not support multi-word messages. Fixed it.
 - What can you do to identify if there are bugs in the code?
+  * Running it with a few cases.
 
 ## Refactoring: Extract Function
 
 - What is different in this code compared to exercise-1?
+  * Lines have been grouped into functions and thus split into modular blocks.
 - Is this code better or worse than exercise-1?
+  * This code is better as it is more modular and structured. It is easier to understand what each line does and easier to navigate.
 - What are the tradeoffs compared to exercise-1?
+  * Longer code
 - Are you able to spot any mistakes or inconsistencies in the changes?
+  * No
   
 ## Thinking About Performance
 
 - Does writing code this way have any impact on performance?
+  * Having function calls might slow down the program. But I assume modern compilers can speed it up by performing the functions inline.
 - What do we mean when we say performance?
+  * The time and space required for the code to execute during runtime.
 - How do we measure performance in a program?
+  * The simplest way to measure time would be using clocks in C++ like chrono. But this is not ideal.
 
 ## Play with Git
 
@@ -64,17 +83,26 @@
 - Make sure to commit each change as small and self-contained commit
 - This will make it easier to revert your code if you need to
 - What is `git tag`? How is `git tag` different from `git branch`?
+  * git tag creates a marker at the current instance of the codebase. We can later access the codebase at that instance but this cannot be modified. 
+  * On the other hand, git branch, creates a new branch which can be modified and later merged into the original branch.
 - How can you use `git tag` and `git branch` to make programming easier and
   more fun?
+  * We can use git tag when we wish to save a version of the codebase that we would like to refer back to.
+  * Use git branch when we wish to code in a different branch which can be potentially merged later.
 
 ## Learn Basics of Debugging in Your IDE
 
 - How do you enable debug mode in your IDE?
+  * By configuring launch.json(and maybe tasks.json too) as required entewring debug mode using F5.
 - In debug mode, how do you add a watch?
+  * By clicking on the plus button next to "Watch" on the "Run and Debug" tab".
 - In debug mode, how do you add a breakpoint?
+  * By clicking next to a line in the code file.
 - In debug mode, how do you step through code?
+  * By clicking on step over to move to next line/continue to move to next breakpoint.
 
 ### Memory Management and Debug Mode in Your IDE
 
 - How do you see the memory layout of a `std::string` from your IDE debug mode?
 - How do you see the memory layout of a struct from your IDE debug mode?
+  * Expand on the struct in the Variables section. Click on the arrow on the left of the struct name.

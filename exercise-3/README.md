@@ -19,9 +19,11 @@
   `create_socket()` in [Compiler Explorer](https://godbolt.org) - Interactive 
   tool for exploring how C++ code compiles to assembly
 - What is happening here?
+  * Adding the check_error() function seems to make the assembly code more complicated.
 - Can you think of any different approaches to this problem?
 - How can you modify your Makefile to generate assembly code instead of
   compiled code?
+  * To get the assembly code of tcp_echo_client.cc: g++ -S -o build/client.s tcp_echo_client.cc
 - **Note**: You can save the generated assembly from Compiler Explorer
 - **Bonus**: Can you view assembly code using your IDE?
 - **Bonus**: How do you see the assembly when you step through each line in

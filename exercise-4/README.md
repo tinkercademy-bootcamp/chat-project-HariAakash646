@@ -7,7 +7,9 @@
 - Move code that can be shared between `tcp_echo_server.cc` and 
   `tcp_echo_client.cc` to separate `.h` and `.cc` files
 - How would you compile from the command line?
+  * Add the common .cpp file to the compilation command
 - How would you compile using make?
+  * Add the common .cpp file to the compilation command in the make file
 - How would you compile using VS Code?
 
 ### Compiling vs Linking

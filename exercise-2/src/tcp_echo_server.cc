@@ -95,6 +95,9 @@ int main() {
   int my_socket = create_socket();
   sockaddr_in address = create_address(kPort);
 
+  std::string message = "Hello, World!";
+  std::cout << message << "\n";
+
   // #Question - is there a better name for this function?
   // #Answer - The current name describes it well.
   start_listening_on_socket(my_socket, address);

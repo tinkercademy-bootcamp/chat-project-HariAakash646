@@ -105,3 +105,4 @@
 
 - How do you see the memory layout of a `std::string` from your IDE debug mode?
 - How do you see the memory layout of a struct from your IDE debug mode?
+  * Expand on the struct in the Variables section. Click on the arrow on the left of the struct name.

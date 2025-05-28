@@ -12,12 +12,17 @@
 
 - Here is one way to separate out the code into multiple files
 - Is this the best way to do it? 
+  * Depends on the use case. If we would need multiple instances of the attributes, this is better.
+  * If we need private functions, this works better.
 - What are the advantages and disadvantages?
+  * Multiple instances of the class can be created.
+  * Can have private functions.
 
 ## Introduction to Namespace
 
 - There are different ways namespace is being used in this exercise
 - Which way is better? What are the advantages and disadvantages?
+  
 
 ## Abstracting Code into Classes
 

@@ -10,7 +10,7 @@ class Client {
 
     void connect_to_server();
 
-    void send_and_receive_message(std::string message);
+    void send_and_receive_message(const std::string &message);
     
     void close_socket();
 

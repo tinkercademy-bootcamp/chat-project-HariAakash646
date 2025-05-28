@@ -20,8 +20,13 @@
   * Linking combines all object files into an executable
 - What is the difference between creating an executable and creating a 
   library?
+  * Executables are standalone programs that can be executed as a single file.
+  * Libraries contain code which can be combined with other programs. 
 - How do you compile a library, and then use that library to compile an
   executable?
+  * g++ -c network_utils.cpp
+  * ar rcs network_utils.a network_utils.o
+  * g++ tcp_echo_client.cpp network_utils.a -o client.out
 
 ### Reminder 
 [Quickstart tutorial to make](https://makefiletutorial.com/) - Learn make 
@@ -31,5 +36,7 @@ fundamentals with practical examples and common patterns.
 
 - Is it better to have many small files spread across many directories, or
   a few large files across fewer directories?
+  * Depends on the use cases. Usually to make the more code readable it is beneficial to group related functions and seperate different functions across files.
+  * Ideal to make sure no functions are repeated.
 - Is there a difference in compilation time between the two?
 - How can you assess performance other than compilation speed?

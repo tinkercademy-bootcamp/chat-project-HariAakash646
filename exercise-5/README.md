@@ -32,6 +32,8 @@
 - **Note**: You don't have to use the code in this exercise as a starting point
 - You can use the code you wrote from previous exercises instead
 - How should you divide the code into files?
+  * Divide the Server class and Client into different files
+  * Further the declaration of the class and its methods are seperated from the definition of the methods.
 - What namespace and directory structure should you use? Why?
 
 ## Programming Sense of Taste

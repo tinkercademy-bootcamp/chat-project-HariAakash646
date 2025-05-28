@@ -47,23 +47,23 @@ void Server::start_listening_on_socket() {
   listen_on_socket();
 }
 
-void Server::handle_accept() {
+void Server::handle_accept(int sock) {
   const int kBufferSize = 1024;
   char buffer[kBufferSize] = {0};
-  ssize_t read_size = read(_sock, buffer, kBufferSize);
+  ssize_t read_size = read(sock, buffer, kBufferSize);
 
   check_error(read_size < 0,
-              "Read error on client socket " + std::to_string(_sock));
+              "Read error on client socket " + std::to_string(sock));
   if (read_size > 0) {
     std::cout << "Received:" << buffer << "\n";
-    send(_sock, buffer, read_size, 0);
+    send(sock, buffer, read_size, 0);
     std::cout << "Echo message sent\n";
   } else if (read_size == 0) {
     std::cout << "Client disconnected.\n";
   } else {
-    std::cerr << "Read error on client socket " << _sock << "\n";
+    std::cerr << "Read error on client socket " << sock << "\n";
   }
-  close(_sock);
+  close(sock);
 }
 
 void Server::handle_connections() {
@@ -72,7 +72,7 @@ void Server::handle_connections() {
   while (true) {
     int accepted_socket = accept(_sock, (sockaddr *)&address, &address_size);
     check_error(accepted_socket < 0, "Accept error n ");
-    handle_accept();
+    handle_accept(accepted_socket);
   }
 }
 

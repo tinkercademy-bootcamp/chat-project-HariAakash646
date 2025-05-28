@@ -27,7 +27,7 @@ class Server {
 
     void listen_on_socket();
 
-    void handle_accept();
+    void handle_accept(int sock);
 };
 
 #endif

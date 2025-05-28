@@ -6,6 +6,7 @@
 
 - What's an easy way to identify the changes in source code from one exercise
   to another?
+  * diff <file1> <file2>
     
 ## Using Classes
 

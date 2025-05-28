@@ -28,6 +28,8 @@ int main(int argc, char *argv[]) {
 
   Client client(kServerAddress, kPort);
 
+  client.connect_to_server();
+
   client.send_and_receive_message(message);
   client.close_socket();  
 

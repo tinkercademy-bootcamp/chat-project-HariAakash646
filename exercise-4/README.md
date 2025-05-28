@@ -39,4 +39,7 @@ fundamentals with practical examples and common patterns.
   * Depends on the use cases. Usually to make the more code readable it is beneficial to group related functions and seperate different functions across files.
   * Ideal to make sure no functions are repeated.
 - Is there a difference in compilation time between the two?
+  * Splitting into two files increases compilation time.
 - How can you assess performance other than compilation speed?
+  * The size of the compile file using `du -sh <filename>`
+  * Maximum RAM usage during compilation can be assessed using `time -v <compilation command>` and looking at Maximum resident set size

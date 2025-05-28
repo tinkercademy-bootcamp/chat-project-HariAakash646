@@ -22,7 +22,9 @@
 
 - There are different ways namespace is being used in this exercise
 - Which way is better? What are the advantages and disadvantages?
-  
+  * namespace works better in this case.
+  * It provides a logical grouping of the functions and that is the only requirement here.
+  * It does not allow any private functions like classes.
 
 ## Abstracting Code into Classes
 

@@ -7,13 +7,12 @@
 
 int main() {
   const int kPort = 8080;
-  int my_socket = create_socket();
-  sockaddr_in address = create_address(kPort);
+  Server server(kPort);
 
-  start_listening_on_socket(my_socket, address);
+  server.start_listening_on_socket();
   std::cout << "Server listening on port " << kPort << "\n";
-  handle_connections(my_socket, kPort);
-  close(my_socket);
+  server.handle_connections();
+  server.close_socket();
 
   return 0;
 }

@@ -54,8 +54,13 @@
   * not bugs but rather consequences of poor code quality
 - What does it mean to have a sense of taste in programming? How can code
   taste?
+  * It is a qualitative assesment of code quality, readability and maintainability(not functional correctness)
 - Is there an analogue for every sense?
 - What other code senses can you think of?
 - How many senses do humans have?
+  * 5
 - When would you want to see something before you touch it?
+  * To ensure it is safe enough to touch
 - When would you want to touch something before you see it?
+  * When we are blindfolded and need to judge what an object is
+  

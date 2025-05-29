@@ -6,17 +6,25 @@
 
 - What's an easy way to identify the changes in source code from one exercise
   to another?
+  * diff <file1> <file2>
     
 ## Using Classes
 
 - Here is one way to separate out the code into multiple files
 - Is this the best way to do it? 
+  * Depends on the use case. If we would need multiple instances of the attributes, this is better.
+  * If we need private functions, this works better.
 - What are the advantages and disadvantages?
+  * Multiple instances of the class can be created.
+  * Can have private functions.
 
 ## Introduction to Namespace
 
 - There are different ways namespace is being used in this exercise
 - Which way is better? What are the advantages and disadvantages?
+  * namespace works better in this case.
+  * It provides a logical grouping of the functions and that is the only requirement here.
+  * It does not allow any private functions like classes.
 
 ## Abstracting Code into Classes
 
@@ -24,22 +32,36 @@
 - **Note**: You don't have to use the code in this exercise as a starting point
 - You can use the code you wrote from previous exercises instead
 - How should you divide the code into files?
+  * Divide the Server class and Client into different files
+  * Further the declaration of the class and its methods are seperated from the definition of the methods.
 - What namespace and directory structure should you use? Why?
+  * Place the Server and Client classes in different files.
+  * namespaces aren't needed as the methods are lready split into classes.
 
 ## Programming Sense of Taste
 
 - How do you judge what makes a particular choice of namespace and directory
   structure? 
+  * Depends on if the structure works well for the required codebase.
 - How do you judge what makes a good naming convention or programming style?
+  * Consistent, Meaningful, Understandable
 
 ## "Senses" in Programming
 
 - Have you ever heard of programmers referring to "code smells"? How can code
   smell?
+  * code smells are characteristics in a code which indicates a deeper problem 
+  * not bugs but rather consequences of poor code quality
 - What does it mean to have a sense of taste in programming? How can code
   taste?
+  * It is a qualitative assesment of code quality, readability and maintainability(not functional correctness)
 - Is there an analogue for every sense?
 - What other code senses can you think of?
+  * Touch could refer to the comfort while reading/modifying the code.
 - How many senses do humans have?
+  * 5
 - When would you want to see something before you touch it?
+  * To ensure it is safe enough to touch
 - When would you want to touch something before you see it?
+  * When we are blindfolded and need to judge what an object is
+  

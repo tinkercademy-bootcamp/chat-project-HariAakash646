@@ -50,10 +50,14 @@
 - What is `std::optional`?
   * It allows a variabloe to store values of a datatype or null value if required.
 - How do you find out the memory layout of a `std::optional`?
+  * Explored using Memory Inspector
+  * Seems to have a boolean flag which is set to 0 if the value is NULL
 - Read https://en.cppreference.com/w/cpp/memory#Smart_pointers - Guide to 
   modern C++ memory management using smart pointers
 - Which pointer types are the most important to know about?
+  * std::unique_ptr and std::shared_ptr
 - Which smart pointer should you use by default if you can?
+  * std::unique_ptr
 - Does changing your optimization level in `CXXFLAGS` from `-O0` to `-O3` have
   any impact on the answers to any of the above questions?
 

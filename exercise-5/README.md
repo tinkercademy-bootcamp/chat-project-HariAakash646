@@ -35,17 +35,23 @@
   * Divide the Server class and Client into different files
   * Further the declaration of the class and its methods are seperated from the definition of the methods.
 - What namespace and directory structure should you use? Why?
+  * Place the Server and Client classes in different files.
+  * namespaces aren't needed as the methods are lready split into classes.
 
 ## Programming Sense of Taste
 
 - How do you judge what makes a particular choice of namespace and directory
   structure? 
+  * Depends on if the structure works well for the required codebase.
 - How do you judge what makes a good naming convention or programming style?
+  * Consistent, Meaningful, Understandable
 
 ## "Senses" in Programming
 
 - Have you ever heard of programmers referring to "code smells"? How can code
   smell?
+  * code smells are characteristics in a code which indicates a deeper problem 
+  * not bugs but rather consequences of poor code quality
 - What does it mean to have a sense of taste in programming? How can code
   taste?
 - Is there an analogue for every sense?

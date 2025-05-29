@@ -42,7 +42,11 @@
 - With the new tool of the Compiler Explorer, and keeping in mind what you 
   have learned about how to use debug mode
 - What happens when you look at a `std::string` using the above methods?
+  * When string length is short enough(<=15 characters or SSO length) Small String Optimization 
+  takes place and stored directly in the internal buffer.
+  * Otherwise, buffer allocated in heap and it stores a pointer to it.
 - Where is the text in your `std::string`?
+  * Either in the heap or stored along with the string's internal buffer depending on string length
 - What is `std::optional`?
   * It allows a variabloe to store values of a datatype or null value if required.
 - How do you find out the memory layout of a `std::optional`?

@@ -57,6 +57,7 @@
   * It is a qualitative assesment of code quality, readability and maintainability(not functional correctness)
 - Is there an analogue for every sense?
 - What other code senses can you think of?
+  * Touch could refer to the comfort while reading/modifying the code.
 - How many senses do humans have?
   * 5
 - When would you want to see something before you touch it?

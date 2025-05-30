@@ -8,7 +8,9 @@
 - A new function `check_error()` has been created and `create_socket()` from 
   exercise-2 has been refactored to make use of it
 - What are the benefits of writing code in this way?
+  * Increased modularisation. The if and cout lines are not repeated.
 - Are there any costs to writing code like this?
+  * The function calls may increase overhead but modern compilers usually optimize for this.
 - Apply `check_error` to all the code in `src/`
 
 ## Introduction to Compiler Explorer
@@ -17,9 +19,11 @@
   `create_socket()` in [Compiler Explorer](https://godbolt.org) - Interactive 
   tool for exploring how C++ code compiles to assembly
 - What is happening here?
+  * Adding the check_error() function seems to make the assembly code more complicated.
 - Can you think of any different approaches to this problem?
 - How can you modify your Makefile to generate assembly code instead of
   compiled code?
+  * To get the assembly code of tcp_echo_client.cc: g++ -S -o build/client.s tcp_echo_client.cc
 - **Note**: You can save the generated assembly from Compiler Explorer
 - **Bonus**: Can you view assembly code using your IDE?
 - **Bonus**: How do you see the assembly when you step through each line in
@@ -32,23 +36,38 @@
 - Make sure you have `-fsanitize=address` in both your `CXX_FLAGS` and 
   `LD_FLAGS` in your Makefile
 - What do `-fsanitize=address`, `CXX_FLAGS` and `LD_FLAGS` mean?
+  * `-fsanitize=address` raises detects memory errors(overflows) during runtime.
+  * CXX_FLAGS - Flags for the compiler
+  * LD_FLAGS - Flags for the linker
 - With the new tool of the Compiler Explorer, and keeping in mind what you 
   have learned about how to use debug mode
 - What happens when you look at a `std::string` using the above methods?
+  * When string length is short enough(<=15 characters or SSO length) Small String Optimization 
+  takes place and stored directly in the internal buffer.
+  * Otherwise, buffer allocated in heap and it stores a pointer to it.
 - Where is the text in your `std::string`?
+  * Either in the heap or stored along with the string's internal buffer depending on string length
 - What is `std::optional`?
+  * It allows a variabloe to store values of a datatype or null value if required.
 - How do you find out the memory layout of a `std::optional`?
+  * Explored using Memory Inspector
+  * Seems to have a boolean flag which is set to 0 if the value is NULL
 - Read https://en.cppreference.com/w/cpp/memory#Smart_pointers - Guide to 
   modern C++ memory management using smart pointers
 - Which pointer types are the most important to know about?
+  * std::unique_ptr and std::shared_ptr
 - Which smart pointer should you use by default if you can?
+  * std::unique_ptr
 - Does changing your optimization level in `CXXFLAGS` from `-O0` to `-O3` have
   any impact on the answers to any of the above questions?
+  * The size of the assembly code generated changes but the memory layout remains the same.
 
 ## More Thinking About Performance
 
 - After your experiments with Compiler Explorer, do you have any updates for
   your answers in exercise-2?
+  * Inline calling of functions depends upon the presence of optimization flags.
+  * No optimization for O0
 
 ### Bonus: Do Not Watch Now 
 

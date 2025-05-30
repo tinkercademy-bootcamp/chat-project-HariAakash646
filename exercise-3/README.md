@@ -60,11 +60,14 @@
   * std::unique_ptr
 - Does changing your optimization level in `CXXFLAGS` from `-O0` to `-O3` have
   any impact on the answers to any of the above questions?
+  * The size of the assembly code generated changes but the memory layout remains the same.
 
 ## More Thinking About Performance
 
 - After your experiments with Compiler Explorer, do you have any updates for
   your answers in exercise-2?
+  * Inline calling of functions depends upon the presence of optimization flags.
+  * No optimization for O0
 
 ### Bonus: Do Not Watch Now 
 

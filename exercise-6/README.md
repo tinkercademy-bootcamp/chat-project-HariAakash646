@@ -11,6 +11,7 @@
 - How do you compile this file using the `g++` CLI?
   * Clone the spdlog repo into current directory
   * g++ -std=c++17 -I./spdlog/include spdlog-hello-world-main.cc -o spdlog-hello-world
+  * Using package managers
 - What do you need to change in your makefile to use this library?
   * Add -I./spdlog/include to CXX_FLAGS
 - How many different ways can this library be added into your project?
@@ -48,5 +49,11 @@
 ## C++ Package Managers
 
 - Why are there so many C++ package managers?
+  * No official standard
+  * Binary builds or Source-based distribution
+  * Open source vs Proprietory
 - Which one is the best one?
+  * No sibgle best option
+  * Depends on what we wish to do and how we compile the project
 - Which are the most notable ways to manage the compilation of C++ projects?
+  * CMake, Make

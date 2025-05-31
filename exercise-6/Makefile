@@ -4,7 +4,7 @@
 CXX := g++
 
 # define the C/C++ compiler flags
-CXXFLAGS :=-std=c++23 -Wall -Wextra -pedantic -fsanitize=address
+CXXFLAGS :=-std=c++23 -Wall -Wextra -pedantic -fsanitize=address -I./spdlog/include
 
 CXX_DEBUG_FLAGS :=-g3 -ggdb3
 CXX_RELEASE_FLAGS :=-O3

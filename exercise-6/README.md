@@ -35,7 +35,7 @@
 - How do you enable static linking or dynamic linking in your makefile?
   * The linker flags needs to have-L/path/to/mylibs -l$(LIBNAME) added to it
   * By default this results in dynamic linking
-  * Add -static flag to enable static linking
+  * Add -static flag to enable static linking.
 
 ## Git Clone and Building from Source
 

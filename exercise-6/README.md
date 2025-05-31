@@ -12,13 +12,22 @@
   * Clone the spdlog repo into current directory
   * g++ -std=c++17 -I./spdlog/include spdlog-hello-world-main.cc -o spdlog-hello-world
 - What do you need to change in your makefile to use this library?
+  * Add -I./spdlog/include to CXX_FLAGS
 - How many different ways can this library be added into your project?
+  * clone the repo and include the readers
+  * clone the repo, compile into libraries and link them
 - What are the tradeoffs in the different ways?
+  * including directly is easier and more cross platform compatible
+  * but linking the library would lead to faster compilation times
 - Why are there so many different ways to do it?
+  * The different ways provide different levels of convenience to compile and different compilation times.
   
 ## Static Linking vs Dynamic Linking
 
 - What are the differences between static linking and dynamic linking?
+  * In static linking linking the library code is directly copied into the executable
+  * In dynamic linking the executable doesn't contain all the library code.
+  * Instead it refers to external shared objects.
 - What are the tradeoffs?
 - How do you enable static linking or dynamic linking in your makefile?
 

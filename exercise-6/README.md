@@ -29,6 +29,9 @@
   * In dynamic linking the executable doesn't contain all the library code.
   * Instead it refers to external shared objects.
 - What are the tradeoffs?
+  * In static linking the program run start up is faster but the executable file size is larger.
+  * In dynamic linking program startup is slower but executable size is slower.
+  * Static linking is more portable.
 - How do you enable static linking or dynamic linking in your makefile?
 
 ## Git Clone and Building from Source

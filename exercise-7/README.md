@@ -13,6 +13,9 @@
   * The code in the first repo is an example of bad code
   * The second repo is good code
 - How do you decide what is good code or bad code?
+  * The first repo has all the code in one large file and the code is not modularised
+    into small functions with understandable functionality
+  * The second repo has split the code into multiple files with small well named functions
 
 ## Creating a Chat Client/Server Using EPOLL
 

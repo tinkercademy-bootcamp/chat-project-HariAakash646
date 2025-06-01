@@ -10,6 +10,8 @@
 - https://man7.org/linux/man-pages/man7/epoll.7.html
 - What other resources can you find about epoll?
 - Are the above code repos examples of good code or bad code?
+  * The code in the first repo is an example of bad code
+  * The second repo is good code
 - How do you decide what is good code or bad code?
 
 ## Creating a Chat Client/Server Using EPOLL

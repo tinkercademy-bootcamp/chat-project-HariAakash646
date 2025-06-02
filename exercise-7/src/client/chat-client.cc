@@ -12,21 +12,26 @@ tt::chat::client::Client::Client(int port)
 std::string tt::chat::client::Client::send_and_receive_message(
     const std::string &message) {
   using namespace tt::chat;
-  char recv_buffer[kBufferSize] = {0};
+  while(true) {
+		printf("input: ");
+		fgets(buffer_, sizeof(buffer_), stdin);
+		int c = strlen(buffer_) - 1;
+		buffer_[c] = '\0';
+		write(sockfd_, buffer_, c + 1);
 
-  // Send the message to the server
-  send(socket_, message.c_str(), message.size(), 0);
-  std::cout << "Sent: " << message << "\n";
+		bzero(buffer_, sizeof(buffer_));
+    int n;
+		while (errno != EAGAIN
+		       && (n = read(sockfd_, buffer_, sizeof(buffer_))) > 0) {
+			printf("echo: %s\n", buffer_);
+			bzero(buffer_, sizeof(buffer_));
 
-  // Receive response from the server
-  ssize_t read_size = read(socket_, recv_buffer, kBufferSize);
-  if (read_size > 0) {
-    return std::string(recv_buffer);
-  } else if (read_size == 0) {
-    return "Server closed connection.\n";
-  } else {
-    return "Read error.\n";
-  }
+			c -= n;
+			if (c <= 0) {
+				break;
+			}
+		}
+	}
 }
 
 tt::chat::client::Client::~Client() { close(socket_); }

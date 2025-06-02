@@ -7,6 +7,10 @@
 
 #include "spdlog/spdlog.h"
 
+#define MAX_EVENTS      32
+#define BUF_SIZE        16
+#define MAX_LINE        256
+
 namespace tt::chat {
 
 template <std::same_as<bool> T, std::convertible_to<std::string_view> S>

@@ -10,6 +10,9 @@ tt::chat::server::Server::Server(int port)
     : socket_(tt::chat::net::create_socket()),
       address_(tt::chat::net::create_address(port)) {
   using namespace tt::chat;
+
+  socket_ = socket(AF_INET, SOCK_STREAM, 0);
+  
   set_socket_options(socket_, 1);
 
   address_.sin_addr.s_addr = INADDR_ANY;

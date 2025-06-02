@@ -2,11 +2,11 @@
 #include "../net/chat-sockets.h"
 #include "../utils.h"
 
-tt::chat::client::Client::Client(int port,
-                                         const std::string &server_address)
-    : socket_{tt::chat::net::create_socket()} {
-  sockaddr_in address = create_server_address(server_address, port);
-  connect_to_server(socket_, address);
+tt::chat::client::Client::Client(int port)
+    : socket_(tt::chat::net::create_socket()) {
+  sockfd_ = socket(AF_INET, SOCK_STREAM, 0);
+	set_sockaddr(&server_address_, port);
+  connect_to_server(socket_, server_address_);
 }
 
 std::string tt::chat::client::Client::send_and_receive_message(
@@ -30,16 +30,6 @@ std::string tt::chat::client::Client::send_and_receive_message(
 }
 
 tt::chat::client::Client::~Client() { close(socket_); }
-
-sockaddr_in tt::chat::client::Client::create_server_address(
-    const std::string &server_ip, int port) {
-  using namespace tt::chat;
-  sockaddr_in address = net::create_address(port);
-  // Convert the server IP address to a binary format
-  auto err_code = inet_pton(AF_INET, server_ip.c_str(), &address.sin_addr);
-  check_error(err_code <= 0, "Invalid address/ Address not supported\n");
-  return address;
-}
 
 void tt::chat::client::Client::connect_to_server(
     int sock, sockaddr_in &server_address) {

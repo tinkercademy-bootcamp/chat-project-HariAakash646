@@ -7,7 +7,13 @@
 #include "../utils.h"
 #include "chat-server.h"
 
-tt::chat::server::Server::Server(int port, int max_connections)
+
+#define MAX_CONN        16
+#define MAX_EVENTS      32
+#define BUF_SIZE        16
+#define MAX_LINE        256
+
+tt::chat::server::Server::Server(int port)
     : socket_(tt::chat::net::create_socket()),
       server_address_(tt::chat::net::create_address(port)) {
   using namespace tt::chat;
@@ -18,7 +24,7 @@ tt::chat::server::Server::Server(int port, int max_connections)
   bind(socket_, (struct sockaddr *)&server_address_, sizeof(server_address_));
 
   setnonblocking(socket_);
-	listen(socket_, max_connections);
+	listen(socket_, MAX_CONN);
 
   std::cout << "Server listening on port " << port << "\n";
 

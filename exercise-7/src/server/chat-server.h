@@ -2,11 +2,18 @@
 #define CHAT_SERVER_H
 
 #include <netinet/in.h>
+#include <sys/epoll.h>
+
+#define MAX_CONN        16
+#define MAX_EVENTS      32
+#define BUF_SIZE        16
+#define MAX_LINE        256
+
 namespace tt::chat::server {
 
 class Server {
 public:
-  Server(int port, int max_connections);
+  Server(int port);
   ~Server();
   void handle_clients();
 
@@ -18,7 +25,7 @@ private:
   int connection_socket_;
   socklen_t socklen_;   // TODO: Define
   char buffer_[BUF_SIZE];
-  struct epoll_event events_[MAX_EVENTS];
+  epoll_event events_[MAX_EVENTS];
 
   static constexpr int kBufferSize = 1024;
 

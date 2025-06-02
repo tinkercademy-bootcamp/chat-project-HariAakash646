@@ -6,7 +6,7 @@ namespace tt::chat::server {
 
 class Server {
 public:
-  Server(int port);
+  Server(int port, int max_connections);
   ~Server();
   void handle_connections();
 
@@ -17,7 +17,7 @@ private:
   static constexpr int kBufferSize = 1024;
 
   void handle_accept(int sock);
-  static void set_socket_options(int sock, int opt);
+  static int setnonblocking(int sock);
 };
 } // namespace tt::chat::server
 

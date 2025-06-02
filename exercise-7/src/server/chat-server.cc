@@ -6,22 +6,18 @@
 #include "../utils.h"
 #include "chat-server.h"
 
-tt::chat::server::Server::Server(int port)
+tt::chat::server::Server::Server(int port, int max_connections)
     : socket_(tt::chat::net::create_socket()),
       address_(tt::chat::net::create_address(port)) {
   using namespace tt::chat;
 
   socket_ = socket(AF_INET, SOCK_STREAM, 0);
-  
-  set_socket_options(socket_, 1);
+  set_sockaddr(&address_, port);
 
-  address_.sin_addr.s_addr = INADDR_ANY;
+  bind(socket_, (struct sockaddr *)&address_, sizeof(address_));
 
-  auto err_code = bind(socket_, (sockaddr *)&address_, sizeof(address_));
-  check_error(err_code < 0, "bind failed\n");
-
-  err_code = listen(socket_, 3);
-  check_error(err_code < 0, "listen failed\n");
+  setnonblocking(socket_);
+	listen(socket_, max_connections);
 
   std::cout << "Server listening on port " << port << "\n";
 }
@@ -38,11 +34,13 @@ void tt::chat::server::Server::handle_connections() {
   }
 }
 
-void tt::chat::server::Server::set_socket_options(int sock, int opt) {
-  using namespace tt::chat;
-  auto err_code = setsockopt(sock, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
-                             &opt, sizeof(opt));
-  check_error(err_code < 0, "setsockopt() error\n");
+int tt::chat::server::Server::setnonblocking(int sock)
+{
+	if (fcntl(sock, F_SETFL, fcntl(sock, F_GETFL, 0) | O_NONBLOCK) ==
+	    -1) {
+		return -1;
+	}
+	return 0;
 }
 
 void tt::chat::server::Server::handle_accept(int sock) {

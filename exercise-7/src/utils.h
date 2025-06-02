@@ -19,4 +19,13 @@ void check_error(T test, S error_message) {
 
 } // namespace tt::chat
 
+static void set_sockaddr(struct sockaddr_in *addr, int port)
+{
+	bzero((char *)addr, sizeof(struct sockaddr_in));
+	addr->sin_family = AF_INET;
+	addr->sin_addr.s_addr = INADDR_ANY;
+	addr->sin_port = htons(port);
+}
+
+
 #endif // UTILS_H

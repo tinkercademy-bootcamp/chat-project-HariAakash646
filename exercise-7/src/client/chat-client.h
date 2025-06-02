@@ -10,7 +10,7 @@ namespace tt::chat::client {
 class Client {
 public:
   Client(int port);
-  std::string send_and_receive_message(const std::string &message);
+  std::string send_and_receive_messages();
   ~Client();
 
 private:

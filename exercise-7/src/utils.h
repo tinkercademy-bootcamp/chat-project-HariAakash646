@@ -4,12 +4,9 @@
 #include <concepts>
 #include <stdexcept>
 #include <string_view>
+#include <netinet/in.h>
 
 #include "spdlog/spdlog.h"
-
-#define MAX_EVENTS      32
-#define BUF_SIZE        16
-#define MAX_LINE        256
 
 namespace tt::chat {
 
@@ -25,7 +22,7 @@ void check_error(T test, S error_message) {
 
 static void set_sockaddr(struct sockaddr_in *addr, int port)
 {
-	bzero((char *)addr, sizeof(struct sockaddr_in));
+	bzero((char *)addr, sizeof(sockaddr_in));
 	addr->sin_family = AF_INET;
 	addr->sin_addr.s_addr = INADDR_ANY;
 	addr->sin_port = htons(port);

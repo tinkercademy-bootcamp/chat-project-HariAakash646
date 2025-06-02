@@ -9,13 +9,13 @@
 
 tt::chat::server::Server::Server(int port, int max_connections)
     : socket_(tt::chat::net::create_socket()),
-      address_(tt::chat::net::create_address(port)) {
+      server_address_(tt::chat::net::create_address(port)) {
   using namespace tt::chat;
 
   socket_ = socket(AF_INET, SOCK_STREAM, 0);
-  set_sockaddr(&address_, port);
+  set_sockaddr(&server_address_, port);
 
-  bind(socket_, (struct sockaddr *)&address_, sizeof(address_));
+  bind(socket_, (struct sockaddr *)&server_address_, sizeof(server_address_));
 
   setnonblocking(socket_);
 	listen(socket_, max_connections);
@@ -29,10 +29,10 @@ tt::chat::server::Server::Server(int port, int max_connections)
 tt::chat::server::Server::~Server() { close(socket_); }
 
 void tt::chat::server::Server::handle_connections() {
-  socklen_t address_size = sizeof(address_);
+  socklen_t address_size = sizeof(server_address_);
 
   while (true) {
-    int accepted_socket = accept(socket_, (sockaddr *)&address_, &address_size);
+    int accepted_socket = accept(socket_, (sockaddr *)&server_address_, &address_size);
     tt::chat::check_error(accepted_socket < 0, "Accept error n ");
     handle_accept(accepted_socket);
   }
@@ -56,6 +56,23 @@ void tt::chat::server::Server::epoll_ctl_add(int epfd, int fd, uint32_t events)
 		perror("epoll_ctl()\n");
 		exit(1);
 	}
+}
+
+void tt::chat::server::Server::connect_to_client() {
+  connection_socket_ =
+      accept(socket_,
+        (struct sockaddr *)&client_address_,
+        &socklen_);
+
+  inet_ntop(AF_INET, (char *)&(client_address_.sin_addr),
+      buffer_, sizeof(client_address_));
+  printf("[+] connected with %s:%d\n", buffer_,
+          ntohs(client_address_.sin_port));
+
+  setnonblocking(connection_socket_);
+  epoll_ctl_add(epfd_, connection_socket_,
+          EPOLLIN | EPOLLET | EPOLLRDHUP |
+          EPOLLHUP);
 }
 
 void tt::chat::server::Server::handle_accept(int sock) {

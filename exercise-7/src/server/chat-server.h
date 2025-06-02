@@ -12,11 +12,17 @@ public:
 
 private:
   int socket_;
-  sockaddr_in address_;
+  sockaddr_in server_address_;
+  sockaddr_in client_address_;
   int epfd_;
+  int connection_socket_;
+  socklen_t socklen_;   // TODO: Define
+  char buffer_[BUF_SIZE];
+  struct epoll_event events_[MAX_EVENTS];
 
   static constexpr int kBufferSize = 1024;
 
+  void connect_to_client();
   void handle_accept(int sock);
   static int setnonblocking(int sock);
   static void epoll_ctl_add(int epfd, int fd, uint32_t events);

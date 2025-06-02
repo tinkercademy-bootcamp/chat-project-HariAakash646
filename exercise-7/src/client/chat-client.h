@@ -7,13 +7,14 @@
 namespace tt::chat::client {
 class Client {
 public:
-  Client(int port, const std::string &server_address);
+  Client(int port);
   std::string send_and_receive_message(const std::string &message);
   ~Client();
 
 private:
   int socket_;
-  sockaddr_in create_server_address(const std::string &server_ip, int port);
+  int sockfd_;
+  sockaddr_in server_address_;
   void connect_to_server(int sock, sockaddr_in &server_address);
 
   static constexpr int kBufferSize = 1024;

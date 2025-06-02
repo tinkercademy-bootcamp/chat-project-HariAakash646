@@ -8,7 +8,7 @@ class Server {
 public:
   Server(int port, int max_connections);
   ~Server();
-  void handle_connections();
+  void handle_clients();
 
 private:
   int socket_;
@@ -23,7 +23,8 @@ private:
   static constexpr int kBufferSize = 1024;
 
   void connect_to_client();
-  void handle_accept(int sock);
+  void handle_accept(epoll_event &event);
+  void close_connection(epoll_event &event);
   static int setnonblocking(int sock);
   static void epoll_ctl_add(int epfd, int fd, uint32_t events);
 };

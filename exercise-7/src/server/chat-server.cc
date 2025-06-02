@@ -26,16 +26,39 @@ tt::chat::server::Server::Server(int port, int max_connections)
 	epoll_ctl_add(epfd_, socket_, EPOLLIN | EPOLLOUT | EPOLLET);
 }
 
-tt::chat::server::Server::~Server() { close(socket_); }
+tt::chat::server::Server::~Server() { 
+  close(socket_); 
+}
 
-void tt::chat::server::Server::handle_connections() {
+void tt::chat::server::Server::handle_clients() {
   socklen_t address_size = sizeof(server_address_);
 
   while (true) {
-    int accepted_socket = accept(socket_, (sockaddr *)&server_address_, &address_size);
-    tt::chat::check_error(accepted_socket < 0, "Accept error n ");
-    handle_accept(accepted_socket);
+    int nfds = epoll_wait(epfd_, events_, MAX_EVENTS, -1);
+    for (int i = 0; i < nfds; i++) {
+			if (events_[i].data.fd == socket_) {
+				/* handle new connection */
+				connect_to_client();
+			} else if (events_[i].events & EPOLLIN) {
+				/* handle EPOLLIN event */
+				handle_accept(events_[i]);
+			} else {
+				printf("[+] unexpected\n");
+			}
+			/* check if the connection is closing */
+			if (events_[i].events & (EPOLLRDHUP | EPOLLHUP)) {
+				close_connection(events_[i]);
+				continue;
+			}
+		}
   }
+}
+
+void tt::chat::server::Server::close_connection(epoll_event &event) {
+  printf("[+] connection closed\n");
+  epoll_ctl(epfd_, EPOLL_CTL_DEL,
+      event.data.fd, NULL);
+  close(event.data.fd);
 }
 
 int tt::chat::server::Server::setnonblocking(int sock)
@@ -75,20 +98,19 @@ void tt::chat::server::Server::connect_to_client() {
           EPOLLHUP);
 }
 
-void tt::chat::server::Server::handle_accept(int sock) {
+void tt::chat::server::Server::handle_accept(epoll_event &event) {
   using namespace tt::chat;
 
-  char buffer[kBufferSize] = {0};
-  ssize_t read_size = read(sock, buffer, kBufferSize);
-
-  if (read_size > 0) {
-    SPDLOG_INFO("Received: {}", buffer);
-    send(sock, buffer, read_size, 0);
-    SPDLOG_INFO("Echo message sent");
-  } else if (read_size == 0) {
-    SPDLOG_INFO("Client disconnected.");
-  } else {
-    SPDLOG_ERROR("Read error on client socket {}", socket_);
+  while(true) {
+    bzero(buffer_, sizeof(buffer_));
+    int n = read(event.data.fd, buffer_,
+        sizeof(buffer_));
+    if (n <= 0 /* || errno == EAGAIN */ ) {
+      break;
+    } else {
+      printf("[+] data: %s\n", buffer_);
+      write(event.data.fd, buffer_,
+            strlen(buffer_));
+    }
   }
-  close(sock);
 }

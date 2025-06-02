@@ -1,4 +1,5 @@
 #include <unistd.h>
+#include <sys/epoll.h>
 
 #include "spdlog/spdlog.h"
 
@@ -20,6 +21,9 @@ tt::chat::server::Server::Server(int port, int max_connections)
 	listen(socket_, max_connections);
 
   std::cout << "Server listening on port " << port << "\n";
+
+  epfd_ = epoll_create(1);
+	epoll_ctl_add(epfd_, socket_, EPOLLIN | EPOLLOUT | EPOLLET);
 }
 
 tt::chat::server::Server::~Server() { close(socket_); }
@@ -41,6 +45,17 @@ int tt::chat::server::Server::setnonblocking(int sock)
 		return -1;
 	}
 	return 0;
+}
+
+void tt::chat::server::Server::epoll_ctl_add(int epfd, int fd, uint32_t events)
+{
+	struct epoll_event ev;
+	ev.events = events;
+	ev.data.fd = fd;
+	if (epoll_ctl(epfd, EPOLL_CTL_ADD, fd, &ev) == -1) {
+		perror("epoll_ctl()\n");
+		exit(1);
+	}
 }
 
 void tt::chat::server::Server::handle_accept(int sock) {

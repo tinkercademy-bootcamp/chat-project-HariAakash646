@@ -9,11 +9,13 @@
 
 #include "client/chat-client.h"
 
-int main() {
+int main(int argc, char* argv[]) {
   const int kPort = 8080;
   const std::string kServerAddress = "127.0.0.1";
 
-  tt::chat::client::Client client(kPort);
+  std::string username = argv[1];
+
+  tt::chat::client::Client client(kPort, username);
 
   client.send_and_receive_messages();
 

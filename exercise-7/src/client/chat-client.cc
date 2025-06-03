@@ -2,8 +2,8 @@
 #include "../net/chat-sockets.h"
 #include "../utils.h"
 
-tt::chat::client::Client::Client(int port)
-    : socket_(tt::chat::net::create_socket()) {
+tt::chat::client::Client::Client(int port, std::string client_username)
+    : socket_(tt::chat::net::create_socket()), username(client_username) {
   sockfd_ = socket(AF_INET, SOCK_STREAM, 0);
 	set_sockaddr(&server_address_, port);
   connect_to_server(sockfd_, server_address_);

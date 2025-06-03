@@ -8,6 +8,7 @@ tt::chat::client::Client::Client(int port, std::string client_username)
   sockfd_ = socket(AF_INET, SOCK_STREAM, 0);
 	set_sockaddr(&server_address_, port);
   connect_to_server(sockfd_, server_address_);
+  write(sockfd_, client_username.c_str(), client_username.size());
 }
 
 std::string tt::chat::client::Client::send_and_receive_messages() {

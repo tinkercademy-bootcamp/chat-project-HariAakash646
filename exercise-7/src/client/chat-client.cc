@@ -1,6 +1,7 @@
 #include "chat-client.h"
 #include "../net/chat-sockets.h"
 #include "../utils.h"
+#include <thread>
 
 tt::chat::client::Client::Client(int port, std::string client_username)
     : socket_(tt::chat::net::create_socket()), username(client_username) {
@@ -11,18 +12,29 @@ tt::chat::client::Client::Client(int port, std::string client_username)
 
 std::string tt::chat::client::Client::send_and_receive_messages() {
   using namespace tt::chat;
-  while(true) {
-		printf("input: ");
-		fgets(buffer_, sizeof(buffer_), stdin);
-		int c = strlen(buffer_) - 1;
-		buffer_[c] = '\0';
-		write(sockfd_, buffer_, c + 1);
+  
+  std::thread reader([this]() {
+    while(true) {
+      int n = read(sockfd_, buffer_, sizeof(buffer_));
+      printf("echo: %s\n", buffer_);
+      std::fflush(stdout);
+      bzero(buffer_, sizeof(buffer_));
+    }
+  });
 
-		bzero(buffer_, sizeof(buffer_));
-    int n = read(sockfd_, buffer_, sizeof(buffer_));
-		printf("echo: %s\n", buffer_);
-		bzero(buffer_, sizeof(buffer_));
-	}
+  while(true) {
+    printf("input: ");
+    std::fflush(stdout);
+    fgets(buffer_, sizeof(buffer_), stdin);
+    int c = strlen(buffer_) - 1;
+    buffer_[c] = '\0';
+    write(sockfd_, buffer_, c + 1);
+    bzero(buffer_, sizeof(buffer_));
+  }
+
+  reader.join();
+  // writer.detach();
+ 
 }
 
 tt::chat::client::Client::~Client() { close(socket_); }

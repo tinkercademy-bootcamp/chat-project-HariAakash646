@@ -19,17 +19,9 @@ std::string tt::chat::client::Client::send_and_receive_messages() {
 		write(sockfd_, buffer_, c + 1);
 
 		bzero(buffer_, sizeof(buffer_));
-    int n;
-		while (errno != EAGAIN
-		       && (n = read(sockfd_, buffer_, sizeof(buffer_))) > 0) {
-			printf("echo: %s\n", buffer_);
-			bzero(buffer_, sizeof(buffer_));
-
-			c -= n;
-			if (c <= 0) {
-				break;
-			}
-		}
+    int n = read(sockfd_, buffer_, sizeof(buffer_));
+		printf("echo: %s\n", buffer_);
+		bzero(buffer_, sizeof(buffer_));
 	}
 }
 

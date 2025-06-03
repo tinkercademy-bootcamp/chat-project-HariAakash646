@@ -107,8 +107,7 @@ void tt::chat::server::Server::connect_to_client() {
   bzero(buffer_, sizeof(buffer_));
   int n = read(connection_socket_, buffer_,
       sizeof(buffer_));
-  printf("[+] connected with %s:%d\n", buffer_,
-          ntohs(client_address_.sin_port));
+  printf("[+] connected with %s\n", buffer_);
 }
 
 void tt::chat::server::Server::handle_accept(epoll_event &event) {

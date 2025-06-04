@@ -7,13 +7,15 @@
 #include "../utils.h"
 #include "chat-server.h"
 
+using namespace tt::chat::server;
+
 
 #define MAX_CONN        16
 #define MAX_EVENTS      32
 #define BUF_SIZE        16
 #define MAX_LINE        256
 
-tt::chat::server::Server::Server(int port)
+Server::Server(int port)
     : socket_(tt::chat::net::create_socket()),
       server_address_(tt::chat::net::create_address(port)) {
   using namespace tt::chat;
@@ -32,11 +34,11 @@ tt::chat::server::Server::Server(int port)
 	epoll_ctl_add(epfd_, socket_, EPOLLIN | EPOLLOUT | EPOLLET);
 }
 
-tt::chat::server::Server::~Server() { 
+Server::~Server() { 
   close(socket_); 
 }
 
-void tt::chat::server::Server::handle_clients() {
+void Server::handle_clients() {
   socklen_t address_size = sizeof(server_address_);
 
   while (true) {
@@ -60,14 +62,14 @@ void tt::chat::server::Server::handle_clients() {
   }
 }
 
-void tt::chat::server::Server::close_connection(epoll_event &event) {
+void Server::close_connection(epoll_event &event) {
   printf("[+] connection closed\n");
   epoll_ctl(epfd_, EPOLL_CTL_DEL,
       event.data.fd, NULL);
   close(event.data.fd);
 }
 
-int tt::chat::server::Server::setnonblocking(int sock)
+int Server::setnonblocking(int sock)
 {
 	if (fcntl(sock, F_SETFL, fcntl(sock, F_GETFL, 0) | O_NONBLOCK) ==
 	    -1) {
@@ -76,7 +78,7 @@ int tt::chat::server::Server::setnonblocking(int sock)
 	return 0;
 }
 
-void tt::chat::server::Server::epoll_ctl_add(int epfd, int fd, uint32_t events)
+void Server::epoll_ctl_add(int epfd, int fd, uint32_t events)
 {
 	struct epoll_event ev;
 	ev.events = events;
@@ -87,7 +89,7 @@ void tt::chat::server::Server::epoll_ctl_add(int epfd, int fd, uint32_t events)
 	}
 }
 
-void tt::chat::server::Server::connect_to_client() {
+void Server::connect_to_client() {
   connection_socket_ =
       accept(socket_,
         (struct sockaddr *)&client_address_,
@@ -112,7 +114,7 @@ void tt::chat::server::Server::connect_to_client() {
   printf("[+] connected with %s\n", buffer_);
 }
 
-void tt::chat::server::Server::handle_accept(epoll_event &event) {
+void Server::handle_accept(epoll_event &event) {
   using namespace tt::chat;
 
   while(true) {

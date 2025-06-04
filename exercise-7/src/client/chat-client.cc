@@ -5,7 +5,7 @@
 
 using namespace tt::chat::client;
 
-tt::chat::client::Client::Client(int port, std::string client_username)
+Client::Client(int port, std::string client_username)
     : socket_(tt::chat::net::create_socket()), username(client_username) {
   sockfd_ = socket(AF_INET, SOCK_STREAM, 0);
 	set_sockaddr(&server_address_, port);
@@ -13,12 +13,13 @@ tt::chat::client::Client::Client(int port, std::string client_username)
   write(sockfd_, client_username.c_str(), client_username.size());
 }
 
-std::string tt::chat::client::Client::send_and_receive_messages() {
+std::string Client::send_and_receive_messages() {
   using namespace tt::chat;
   
   std::thread reader([this]() {
     while(true) {
       int n = read(sockfd_, buffer_, sizeof(buffer_));
+      std::fflush(stdout);
       printf("%s\n", buffer_);
       std::fflush(stdout);
       bzero(buffer_, sizeof(buffer_));
@@ -39,9 +40,9 @@ std::string tt::chat::client::Client::send_and_receive_messages() {
  
 }
 
-tt::chat::client::Client::~Client() { close(socket_); }
+Client::~Client() { close(socket_); }
 
-void tt::chat::client::Client::connect_to_server(
+void Client::connect_to_server(
     int sock, sockaddr_in &server_address) {
   using namespace tt::chat;
   auto err_code =

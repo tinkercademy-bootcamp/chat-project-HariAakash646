@@ -28,5 +28,15 @@ static void set_sockaddr(struct sockaddr_in *addr, int port)
 	addr->sin_port = htons(port);
 }
 
+std::vector<std::string> split(const std::string& str) {
+    std::vector<std::string> tokens;
+    std::istringstream iss(str);
+    std::string token;
+    while (iss >> token) {
+        tokens.push_back(token);
+    }
+    return tokens;
+}
+
 
 #endif // UTILS_H

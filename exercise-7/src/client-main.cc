@@ -13,6 +13,11 @@ int main(int argc, char* argv[]) {
   const int kPort = 8080;
   const std::string kServerAddress = "127.0.0.1";
 
+  if(argc < 2) {
+    printf("Client Username must be passed as an argument.\n");
+    exit(1);
+  }
+
   std::string username = argv[1];
 
   tt::chat::client::Client client(kPort, username);

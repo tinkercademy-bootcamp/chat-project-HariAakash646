@@ -92,6 +92,7 @@ void tt::chat::server::Server::connect_to_client() {
       accept(socket_,
         (struct sockaddr *)&client_address_,
         &socklen_);
+  connected_sockets.push_back(connection_socket_);
 
   inet_ntop(AF_INET, (char *)&(client_address_.sin_addr),
       buffer_, sizeof(client_address_));
@@ -107,6 +108,7 @@ void tt::chat::server::Server::connect_to_client() {
   bzero(buffer_, sizeof(buffer_));
   int n = read(connection_socket_, buffer_,
       sizeof(buffer_));
+  socket_username_map[connection_socket_] = buffer_;
   printf("[+] connected with %s\n", buffer_);
 }
 
@@ -120,9 +122,12 @@ void tt::chat::server::Server::handle_accept(epoll_event &event) {
     if (n <= 0 /* || errno == EAGAIN */ ) {
       break;
     } else {
-      printf("[+] data: %s\n", buffer_);
-      write(event.data.fd, buffer_,
-            strlen(buffer_));
+      printf("[+] %s: %s\n", socket_username_map[event.data.fd].c_str(), buffer_);
+      for(auto curr_sock : connected_sockets) {
+        std::string output = socket_username_map[event.data.fd] + ": ";
+        output += buffer_;
+        write(curr_sock, output.c_str(), output.size());
+      }
     }
   }
 }

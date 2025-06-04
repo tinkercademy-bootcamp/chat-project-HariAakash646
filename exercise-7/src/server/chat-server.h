@@ -3,6 +3,9 @@
 
 #include <netinet/in.h>
 #include <sys/epoll.h>
+#include <vector>
+#include <map>
+#include <string>
 
 #define MAX_CONN        16
 #define MAX_EVENTS      32
@@ -26,6 +29,8 @@ private:
   socklen_t socklen_;   // TODO: Define
   char buffer_[BUF_SIZE];
   epoll_event events_[MAX_EVENTS];
+  std::vector<int> connected_sockets;
+  std::map<int, std::string> socket_username_map;
 
   static constexpr int kBufferSize = 1024;
 

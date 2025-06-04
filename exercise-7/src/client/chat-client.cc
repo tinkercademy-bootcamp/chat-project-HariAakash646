@@ -17,14 +17,13 @@ std::string tt::chat::client::Client::send_and_receive_messages() {
   std::thread reader([this]() {
     while(true) {
       int n = read(sockfd_, buffer_, sizeof(buffer_));
-      printf("echo: %s\n", buffer_);
+      printf("%s\n", buffer_);
       std::fflush(stdout);
       bzero(buffer_, sizeof(buffer_));
     }
   });
 
   while(true) {
-    printf("input: ");
     std::fflush(stdout);
     fgets(buffer_, sizeof(buffer_), stdin);
     int c = strlen(buffer_) - 1;

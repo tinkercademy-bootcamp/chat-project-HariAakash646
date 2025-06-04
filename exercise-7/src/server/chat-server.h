@@ -42,6 +42,8 @@ private:
   static int setnonblocking(int sock);
   static void epoll_ctl_add(int epfd, int fd, uint32_t events);
   void route_function(int socket, const std::string &command);
+  void switch_channel(int socket, int channel);
+  void create_channel(int socket, const std::string &channel_name);
 };
 } // namespace tt::chat::server
 

@@ -38,8 +38,6 @@ Server::Server(int port)
 
   channels.push_back("Lobby");
   channels_sockets.push_back({});
-  channels.push_back("Channel 1");
-  channels.push_back({});
 }
 
 Server::~Server() { 
@@ -74,6 +72,13 @@ void Server::close_connection(epoll_event &event) {
   printf("[+] connection closed\n");
   epoll_ctl(epfd_, EPOLL_CTL_DEL,
       event.data.fd, NULL);
+  int channel = socket_channel_map[event.data.fd];
+  std::string output = socket_username_map[event.data.fd] + " has exited " + channels[channel] + "\n";
+  for(auto sock : channels_sockets[channel])
+    write(sock, output.c_str(), output.size());
+  socket_channel_map.erase(event.data.fd);
+  socket_username_map.erase(event.data.fd);
+  channels_sockets[channel].erase(find(channels_sockets[channel].begin(), channels_sockets[channel].end(), event.data.fd));
   close(event.data.fd);
 }
 
@@ -153,12 +158,62 @@ void Server::handle_accept(epoll_event &event) {
 }
 
 void Server::route_function(int socket, const std::string &command) {
-  std::vector<std::string> com_tokens = split(command);
-  if(com_tokens[0] == "/goto" && com_tokens.size() >= 1) {
-    // switch_channel(stoi(com_tokens[1]));
+  std::vector<std::string> com_tokens;
+  std::istringstream iss(command);
+  std::string token;
+  while (iss >> token) {
+      com_tokens.push_back(token);
+  }
+  for(auto e : com_tokens) {
+    std::cout << e << "\n";
+  }
+  if(com_tokens[0] == "/goto" && com_tokens.size() >= 2) {
+    int channel=-1;
+    try {
+      channel = stoi(com_tokens[1]);
+    }
+    catch(...) {
+      std::string output = "Invalid command.\n";
+      write(socket, output.c_str(), output.size());
+    } 
+    if(channel != -1)
+      switch_channel(socket, channel);
   } 
+  else if(com_tokens[0] == "/create" && com_tokens.size() >= 2) {
+    create_channel(socket, com_tokens[1]);
+  }
   else {
     std::string output = "Invalid command.\n";
     write(socket, output.c_str(), output.size());
   }
+}
+
+void Server::switch_channel(int socket, int channel) {
+  if(channel >= channels.size()) {
+    std::string output = "Invalid channel.\n";
+    write(socket, output.c_str(), output.size());
+  }
+  else {
+    int prev_channel = socket_channel_map[socket];
+    channels_sockets[prev_channel].erase(find(channels_sockets[prev_channel].begin(), channels_sockets[prev_channel].end(), socket));
+    channels_sockets[channel].push_back(socket);
+    socket_channel_map[socket] = channel;
+
+    std::string output = socket_username_map[socket] + " has exited " + channels[prev_channel] + "\n";
+    for(auto sock : channels_sockets[prev_channel])
+      write(sock, output.c_str(), output.size());
+
+    output = socket_username_map[socket] + " has entered " + channels[channel] + "\n";
+    for(auto sock : channels_sockets[channel])
+      write(sock, output.c_str(), output.size());
+  }
+}
+
+void Server::create_channel(int socket, const std::string &channel_name) {
+  int channel_id = channels.size();
+  channels.push_back(channel_name);
+  channels_sockets.push_back({});
+  std::string output = "Channel " + channel_name + " added with Channel ID " + std::to_string(channel_id) + "\n";
+  for(auto sock : socket_username_map)
+    write(sock.first, output.c_str(), output.size());
 }

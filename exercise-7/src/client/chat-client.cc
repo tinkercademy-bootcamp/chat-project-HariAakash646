@@ -3,6 +3,8 @@
 #include "../utils.h"
 #include <thread>
 
+using namespace tt::chat::client;
+
 tt::chat::client::Client::Client(int port, std::string client_username)
     : socket_(tt::chat::net::create_socket()), username(client_username) {
   sockfd_ = socket(AF_INET, SOCK_STREAM, 0);

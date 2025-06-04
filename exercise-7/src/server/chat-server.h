@@ -9,7 +9,7 @@
 
 #define MAX_CONN        16
 #define MAX_EVENTS      32
-#define BUF_SIZE        16
+#define BUF_SIZE        128
 #define MAX_LINE        256
 
 namespace tt::chat::server {
@@ -29,8 +29,10 @@ private:
   socklen_t socklen_;   // TODO: Define
   char buffer_[BUF_SIZE];
   epoll_event events_[MAX_EVENTS];
-  std::vector<int> connected_sockets;
+  std::vector<std::string> channels;
+  std::vector<std::vector<int>> channels_sockets;
   std::map<int, std::string> socket_username_map;
+  std::map<int, int> socket_channel_map;
 
   static constexpr int kBufferSize = 1024;
 
@@ -39,6 +41,7 @@ private:
   void close_connection(epoll_event &event);
   static int setnonblocking(int sock);
   static void epoll_ctl_add(int epfd, int fd, uint32_t events);
+  void route_function(int socket, const std::string &command);
 };
 } // namespace tt::chat::server
 

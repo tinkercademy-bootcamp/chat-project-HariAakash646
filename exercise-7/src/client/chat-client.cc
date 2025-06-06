@@ -2,11 +2,13 @@
 #include "../net/chat-sockets.h"
 #include "../utils.h"
 #include <thread>
+#include <ncurses.h>
 
 using namespace tt::chat::client;
 
 Client::Client(int port, std::string client_username)
     : socket_(tt::chat::net::create_socket()), username(client_username) {
+  initscr();
   sockfd_ = socket(AF_INET, SOCK_STREAM, 0);
 	set_sockaddr(&server_address_, port);
   connect_to_server(sockfd_, server_address_);
@@ -20,16 +22,16 @@ std::string Client::send_and_receive_messages() {
     while(true) {
       int n = read(sockfd_, buffer_, sizeof(buffer_));
       std::fflush(stdout);
-      printf("%s\n", buffer_);
-      std::fflush(stdout);
+      printw("%s\n", buffer_);
+      refresh();
       bzero(buffer_, sizeof(buffer_));
     }
   });
 
   while(true) {
     std::fflush(stdout);
-    fgets(buffer_, sizeof(buffer_), stdin);
-    int c = strlen(buffer_) - 1;
+    getnstr(buffer_, sizeof(buffer_));
+    int c = strlen(buffer_);
     buffer_[c] = '\0';
     write(sockfd_, buffer_, c + 1);
     bzero(buffer_, sizeof(buffer_));
@@ -40,7 +42,7 @@ std::string Client::send_and_receive_messages() {
  
 }
 
-Client::~Client() { close(socket_); }
+Client::~Client() { endwin(); close(socket_); }
 
 void Client::connect_to_server(
     int sock, sockaddr_in &server_address) {

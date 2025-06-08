@@ -8,6 +8,14 @@
 
 namespace tt::chat::client {
 class Client {
+  /**
+   * @brief Runs the Client, connects it to the server, sends and receives messages.
+   * 
+   * Inputs the messages and displays them through an ncurses window.
+   * Can use specifics commands like /goto and /create to switch between
+   * or create channels.
+   * 
+   */
 public:
   std::string username;
   Client(int port, std::string client_username);

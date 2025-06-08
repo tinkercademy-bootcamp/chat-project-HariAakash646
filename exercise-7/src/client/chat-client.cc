@@ -6,7 +6,7 @@
 
 using namespace tt::chat::client;
 
-Client::Client(int port, std::string client_username)
+Client::Client(int port, const std::string &client_username)
     : socket_(tt::chat::net::create_socket()), username(client_username) {
   initscr();
   sockfd_ = socket(AF_INET, SOCK_STREAM, 0);

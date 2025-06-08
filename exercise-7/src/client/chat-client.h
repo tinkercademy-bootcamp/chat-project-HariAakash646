@@ -18,7 +18,7 @@ class Client {
    */
 public:
   std::string username;
-  Client(int port, std::string client_username);
+  Client(int port, const std::string &client_username);
   std::string send_and_receive_messages();
   ~Client();
 

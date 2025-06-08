@@ -15,6 +15,14 @@
 namespace tt::chat::server {
 
 class Server {
+  /**
+   * @brief Creates the server interface, accepts connections from different clients and 
+   * allows communication through multiple channels.
+   * 
+   * Accepts specific commands like /goto or /create and moves clients between channels
+   * or creates new channels.
+   * 
+   */
 public:
   Server(int port);
   ~Server();
